@@ -14,6 +14,55 @@ let tileSize = 50;
 let validtiles = [[5,6],[0,8],[3,4],[3,0]];
 //array to store the coordinates of any tiles that will have displayMessage called
 
+let graphicMap = [
+  //Y coordinate
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] //X coordinate
+]
+
+let collisionMap = [
+  //Y coordinate
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] //X coordinate
+]
+
+let tileRules = [
+  //Y coordinate
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] //X coordinate
+]
+
+let textures = [];
+
+function preload(){
+  textures[0] = loadImage('Resources/grassy.png');
+  textures[1] = loadImage('Resources/stone.png');
+}
+
 //class for the tiles
 class Tile {
   constructor(tileX, tileY, tileSize, tileID){
@@ -76,6 +125,10 @@ class Tile {
 
   }
 
+  displayTile(){
+    image(textures[graphicMap[this.tileY][this.tileX]], this.xPos, this.yPos);
+  }
+
 }
 
 
@@ -109,6 +162,7 @@ function draw() {
       //loops through the entire grid
 
       tileMap[x][y].debugGrid();
+      tileMap[x][y].displayTile();
       //draws the debug grid at every X and Y
 
       for(let i=0; i<validtiles.length; i++){
