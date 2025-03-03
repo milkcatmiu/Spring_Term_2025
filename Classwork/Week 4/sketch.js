@@ -1,6 +1,62 @@
 
 //GLOBAL VARIABLES (universally accessible)
 
+//player stuff
+
+let player;
+let bwLibrarianSprite;
+let playercoordinate = [5,5];
+
+class Player {
+  constructor(sprite, x, y, hp){
+    this.playersprite = sprite;
+    this.playerX = x;
+    this.playerY = y;
+    this.playerHP = hp;
+    this.textPaddingX = 18;
+    this.textPaddingY = -5;
+    this.playersize = 48;
+    this.playermoving = false;
+    this.playermoveX = 0;
+    this.playermoveY = 0;
+
+  }
+  displayplayer(){
+      image(this.playersprite, this.playerX, this.playerY, this.playersize,this.playersize);
+    textSize(20);
+    text(this.playerHP, this.playerX+this.textPaddingX, this.playerY+this.textPaddingY);
+  }
+  damageplayer(damagetaken){
+    this.playerHP -= damagetaken;
+  }
+
+  setdirection(direction){
+    //0 = North
+    //1 = East
+    //2 = South
+    //3 = West
+    if(direction==0){
+      this.playermoveX = 0;
+      this.playermoveY = 1;
+    }
+    else if(direction==1){
+      this.playermoveX = 1;
+      this.playermoveY = 0;
+    }
+    else if(direction==2){
+      this.playermoveX = 0;
+      this.playermoveY = -1;
+    }
+    else if(direction==3){
+      this.playermoveX = -1;
+      this.playermoveY = 0;
+    }
+
+    
+  }
+}
+
+
 let tileMap = [];
 //array to store the entire tile map
 
@@ -42,25 +98,12 @@ let collisionMap = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] //X coordinate
 ]
 
-let tileRules = [
-  //Y coordinate
-  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-  [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] //X coordinate
-]
-
 let textures = [];
 
 function preload(){
   textures[0] = loadImage('Resources/grassy.png');
   textures[1] = loadImage('Resources/stone.png');
+  bwLibrarianSprite = loadImage('Resources/librarian-bw.png');
 }
 
 //class for the tiles
