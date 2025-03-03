@@ -1,62 +1,6 @@
 
 //GLOBAL VARIABLES (universally accessible)
 
-//player stuff
-
-let player;
-let bwLibrarianSprite;
-let playercoordinate = [5,5];
-
-class Player {
-  constructor(sprite, x, y, hp){
-    this.playersprite = sprite;
-    this.playerX = x;
-    this.playerY = y;
-    this.playerHP = hp;
-    this.textPaddingX = 18;
-    this.textPaddingY = -5;
-    this.playersize = 48;
-    this.playermoving = false;
-    this.playermoveX = 0;
-    this.playermoveY = 0;
-
-  }
-  displayplayer(){
-      image(this.playersprite, this.playerX, this.playerY, this.playersize,this.playersize);
-    textSize(20);
-    text(this.playerHP, this.playerX+this.textPaddingX, this.playerY+this.textPaddingY);
-  }
-  damageplayer(damagetaken){
-    this.playerHP -= damagetaken;
-  }
-
-  setdirection(direction){
-    //0 = North
-    //1 = East
-    //2 = South
-    //3 = West
-    if(direction==0){
-      this.playermoveX = 0;
-      this.playermoveY = 1;
-    }
-    else if(direction==1){
-      this.playermoveX = 1;
-      this.playermoveY = 0;
-    }
-    else if(direction==2){
-      this.playermoveX = 0;
-      this.playermoveY = -1;
-    }
-    else if(direction==3){
-      this.playermoveX = -1;
-      this.playermoveY = 0;
-    }
-
-    
-  }
-}
-
-
 let tileMap = [];
 //array to store the entire tile map
 
@@ -99,6 +43,65 @@ let collisionMap = [
 ]
 
 let textures = [];
+
+//player variables
+
+let player;
+let bwLibrarianSprite;
+let playercoordinate = [5,5];
+
+//player class
+class Player {
+  constructor(sprite, x, y, hp){
+    this.playersprite = sprite;
+    this.playerX = x;
+    this.playerY = y;
+    this.playerHP = hp;
+    this.textPaddingX = 18;
+    this.textPaddingY = -5;
+    this.playersize = 48;
+    this.playermoving = false;
+    this.playermoveX = 0;
+    this.playermoveY = 0;
+  }
+  displayplayer(){
+    //function to display player
+      image(this.playersprite, this.playerX, this.playerY, this.playersize,this.playersize);
+    textSize(20);
+    text(this.playerHP, this.playerX+this.textPaddingX, this.playerY+this.textPaddingY);
+  }
+  damageplayer(damagetaken){
+    //function to damage player
+    this.playerHP -= damagetaken;
+  }
+
+  setdirection(direction){
+    //function to set direction of player
+    //0 = North
+    //1 = East
+    //2 = South
+    //3 = West
+    if(direction==0){
+      this.playermoveX = 0;
+      this.playermoveY = 1;
+    }
+    else if(direction==1){
+      this.playermoveX = 1;
+      this.playermoveY = 0;
+    }
+    else if(direction==2){
+      this.playermoveX = 0;
+      this.playermoveY = -1;
+    }
+    else if(direction==3){
+      this.playermoveX = -1;
+      this.playermoveY = 0;
+    }
+  }
+}
+
+
+
 
 function preload(){
   textures[0] = loadImage('Resources/grassy.png');
@@ -220,4 +223,6 @@ function draw() {
       }
     }
   }
+
+  player.displayplayer();
 }
